@@ -1,0 +1,65 @@
+<h2 class="text-3xl text-center">
+    Connected to
+</h2>
+<div class="flex justify-center items-center gap-4">
+    <p class="text-5xl font-bold text-center tracking-wider">
+    {{ .Token }}
+    </p>
+    <button class="self-center h-8 w-8 mt-1 text-orange-700 rounded-md">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-full w-full">
+            <path fill-rule="evenodd"
+            d="M17.663 3.118c.225.015.45.032.673.05C19.876 3.298 21 4.604 21 6.109v9.642a3 3 0 01-3 3V16.5c0-5.922-4.576-10.775-10.384-11.217.324-1.132 1.3-2.01 2.548-2.114.224-.019.448-.036.673-.051A3 3 0 0113.5 1.5H15a3 3 0 012.663 1.618zM12 4.5A1.5 1.5 0 0113.5 3H15a1.5 1.5 0 011.5 1.5H12z"
+            clip-rule="evenodd" />
+            <path
+            d="M3 8.625c0-1.036.84-1.875 1.875-1.875h.375A3.75 3.75 0 019 10.5v1.875c0 1.036.84 1.875 1.875 1.875h1.875A3.75 3.75 0 0116.5 18v2.625c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625v-12z" />
+            <path
+            d="M10.5 10.5a5.23 5.23 0 00-1.279-3.434 9.768 9.768 0 016.963 6.963 5.23 5.23 0 00-3.434-1.279h-1.875a.375.375 0 01-.375-.375V10.5z" />
+        </svg>
+    </button>
+</div>
+
+<div hx-ext="ws" ws-connect="/room/{{ .Token }}?name={{ .ClientName}}">
+
+    <form ws-send>
+        <input type="hidden" name="kind" value="set_value" />
+        <p class="text-center">
+        Choose the value to send and (optionally) a group.
+        Partecipants a group cannot receive values from
+        others of the same group.
+        </p>
+        <input name="value" class="w-full my-2 py-2 rounded-md bg-orange-200 text-stone-700 tracking-wider
+        placeholder:italic placeholder:text-stone-500 text-center" placeholder="value" />
+        <select
+            name="group"
+            class="w-full mb-2 px-2 h-10 text-center bg-stone-700 color-orange-200 rounded-md"
+            >
+            <option selected value="">No Group</option>
+            <option value="Group 1">Group 1</option>
+            <option value="Group 2">Group 2</option>
+            <option value="Group 3">Group 3</option>
+            <option value="Group 4">Group 4</option>
+            <option value="Group 5">Group 5</option>
+            <option value="Group 6">Group 6</option>
+            <option value="Group 7">Group 7</option>
+            <option value="Group 8">Group 8</option>
+            <option value="Group 9">Group 9</option>
+        </select>
+        <button type="submit" class="bg-stone-600 font-bold tracking-wider text-orange-200
+            hover:shadow-inner shadow-sm shadow-stone-700 hover:shadow-stone-900
+            py-2 px-4 rounded-md w-full">
+            Send
+        </button>
+    </form>
+
+    <div id="shuffle_result">
+    </div>
+
+    <div id="clients">
+        Nobody here... try to wait a second, maybe I am taking a bit to
+        create a connection.
+    </div>
+
+    <div id="shuffle">
+    </div>
+
+</div>
