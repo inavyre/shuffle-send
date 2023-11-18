@@ -178,12 +178,14 @@ func (r *Room) RegisterClient(client *Client) {
 }
 
 func (r *Room) UnregisterClient(client *Client) {
+    log.Printf("[%s] Unregistering client", r.token)
 	close(client.stateChan)
 	close(client.shuffleChan)
 	delete(r.clients, client)
 	client.room.SendUpdate(client)
 
 	if len(r.clients) == 0 {
+        log.Printf("[%s] Closing", r.token)
 		r.hub.CloseRoom(r.token)
 	}
 }
